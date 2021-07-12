@@ -63,14 +63,51 @@ def replace_polynomial(expression, replacement, list_symbols):
             change |= placement_term[1]
             new_terms.append(placement_term[0])
 
-        return Add(*new_terms), change
+        return Add(*new_terms).expand(mul=True), change
     else:
         print(f"Wrong operator {expression.func}")
 
 pprint(replace_monomial(x*y*x, {x*y: y*y}, [x, y]))
 pprint(replace_monomial(x*x*y, {x*y: y*y}, [x, y]))
 
+sl3_c = {
+    E13*E12: E12*E13,
+    E13*E23: E23*E13,
+    E13*H23: H23*E13-2*E13,
+    E13*H12: H12*E13-E13,
+    E13*E32: E32*E13+E13,
+    E13*E21: E21*E13-E23,
+    E13*E31: E31*E13+H23,
+    E12*E23: E23*E12+E13,
+    E12*H23: H23*E12+E13,
+    E12*H12: H12*E12-2*E12,
+    E12*E32: E32*E12,
+    E12*E21: E21*E12+H12,
+    E12*E31: E31*E12-E32,
+
+    E23*H23: H23*E23-E23,
+    E23*H12: H12*E23+E23,
+    E23*E32: E32*E23+H12+H23,
+    E23*E21: E21*E23,
+    E23*E31: E31*E23+E21,
+
+    H23*H12: H12*H23,
+    H23*E23: E32*H23-E32,
+    H23*E21: E21*H23-E21,
+    H23*E31: E31*H23-2*E31,
+
+    H12*E32: E32*H12+E32,
+    H12*E21: E21*H12-2*E21,
+    H12*E31: E31*H12-E31,
+
+    E32*E21: E21*E32+E31,
+    E32*E31: E31*E32,
+
+    E21*E31: E31*E21
+    }
 pprint(replace_monomial(E31*E31*E32, {E31*E32: E32*E23+H12+H23}, [E31, E32, E21, E13, E12, E23, H12, H23]))
 result = replace_monomial(E31*E31*E32, {E31*E32: E32*E23+H12+H23}, [E31, E32, E21, E13, E12, E23, H12, H23])[0].expand(mul=True)
 pprint(result)
-pprint(replace_polynomial(E31*E31*E32+ E32*E31*E31, {E31*E32: E32*E23+H12+H23}, [E31, E32, E21, E13, E12, E23, H12, H23]))
+pprint(replace_polynomial(E31*E31*E32 + 2*E32*E31*E31, {E31*E32: E32*E23+H12+H23}, [E31, E32, E21, E13, E12, E23, H12, H23]))
+pprint(replace_polynomial(E31*E31*E32 + 2*E32*E31*E31, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
+pprint(replace_polynomial(H12*E31*H23*E32 + 2*E32*E31*E31, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
