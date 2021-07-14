@@ -7,15 +7,6 @@
 
 using namespace std;
 
-extern const int max;
-extern const int max1;
-
-extern const int max_parts;
-
-extern const int pmax;
-
-extern const int nn;
-
 int convert(string element) {
 
     int value = 0;
@@ -46,7 +37,7 @@ string unconvert(int id) {
 
 int main() {
 
-    printf("Zadej pocet clenu polynomu (max = 10): ");
+    printf("Zadej pocet clenu polynomu (maximal_order = 10): ");
 
     int pocet_clenu;
 
@@ -54,21 +45,21 @@ int main() {
 
     printf("\n");
 
-    int puvodni_polynom[pmax][max][2];
+    int puvodni_polynom[pmaximal_order][maximal_order][2];
 
-    for (int ip = 0; ip < pmax; ip++) {
-        for (int i1 = 0; i1 < max; i1++) {
+    for (int ip = 0; ip < pmaximal_order; ip++) {
+        for (int i1 = 0; i1 < maximal_order; i1++) {
             for (int i2 = 0; i2 < 2; i2++) {
                 puvodni_polynom[ip][i1][i2] = 0;
             }
         }
     }
 
-    int koeficient[pmax];
+    int koeficient[pmaximal_order];
 
     for (int ip = 0; ip < pocet_clenu; ip++) {
 
-        printf("Zadej pocet prvku %u.soucinu (max = 10): ", ip + 1);
+        printf("Zadej pocet prvku %u.soucinu (maximal_order = 10): ", ip + 1);
 
         int pocet_prvku;
 
@@ -96,9 +87,9 @@ int main() {
 
     for (int ip = 0; ip < pocet_clenu; ip++) {
 
-        int soucin[max][2];
+        int soucin[maximal_order][2];
 
-        for (int i1 = 0; i1 < max; i1++) {
+        for (int i1 = 0; i1 < maximal_order; i1++) {
             for (int i2 = 0; i2 < 2; i2++) {
                 soucin[i1][i2] = puvodni_polynom[ip][i1][i2];
             }
@@ -124,7 +115,7 @@ int main() {
     int test = konecny_rozklad.part[0].number_factor - neusporadany_rozklad.part[0].number_factor;
     if (test == 0) test = abs(konecny_rozklad.part[1].number_factor);
     int l = 0;
-    while ((test == 0) && (l < max)) {
+    while ((test == 0) && (l < maximal_order)) {
         test = abs(konecny_rozklad.part[0].factor[l][0] - neusporadany_rozklad.part[0].factor[l][0]) + abs(konecny_rozklad.part[0].factor[l][1] - neusporadany_rozklad.part[0].factor[l][1]); l++;
     }
 
@@ -132,10 +123,10 @@ int main() {
 
     if (test == 0) {
 
-        int puvodni_polynom1[pmax][max1][2];
+        int puvodni_polynom1[pmaximal_order][maximal_order1][2];
 
-        for (int jp = 0; jp < pmax; jp++) {
-            for (int j = 0; j < max1; j++) {
+        for (int jp = 0; jp < pmaximal_order; jp++) {
+            for (int j = 0; j < maximal_order1; j++) {
                 puvodni_polynom1[jp][j][0] = 0;
                 puvodni_polynom1[jp][j][1] = 0;
             }
@@ -143,8 +134,8 @@ int main() {
 
         int pom = 0;
 
-        for (int jp = 0; jp < pmax; jp++) {
-            for (int i1 = 0; i1 < max; i1++) {
+        for (int jp = 0; jp < pmaximal_order; jp++) {
+            for (int i1 = 0; i1 < maximal_order; i1++) {
                 for (int i2 = 0; i2 < puvodni_polynom[jp][i1][1]; i2++) {
                     puvodni_polynom1[jp][pom + i2][0] = puvodni_polynom[jp][i1][0];
                     puvodni_polynom1[jp][pom + i2][1] = puvodni_polynom1[jp][pom + i2][0] == 0 ? 0 : 1;
@@ -178,7 +169,7 @@ int main() {
             if (koeficient[ip] == 1) { printf(" + "); std::fprintf(f, " + "); }
             if (koeficient[ip] > 1) { printf(" + %u * ", koeficient[ip]); std::fprintf(f, " + %u * ", koeficient[ip]); }
         }
-        for (int i1 = 0; i1 < max; i1++) {
+        for (int i1 = 0; i1 < maximal_order; i1++) {
             if (puvodni_polynom[ip][i1][0] != 0) {
                 string q = unconvert(puvodni_polynom[ip][i1][0]);
                 int power = puvodni_polynom[ip][i1][1];
@@ -193,7 +184,7 @@ int main() {
 
         int jj = 0;
 
-        while ((finalni_vyraz.part[jj].number_factor != 0) && (jj < max_parts)) {
+        while ((finalni_vyraz.part[jj].number_factor != 0) && (jj < maximal_order_parts)) {
 
             int q_factor = finalni_vyraz.part[jj].number_factor;
 
@@ -220,7 +211,7 @@ int main() {
 
             int i1 = 0;
 
-            while ((i1 < max1) && (finalni_vyraz.part[jj].factor[i1][0] != 0)) {
+            while ((i1 < maximal_order1) && (finalni_vyraz.part[jj].factor[i1][0] != 0)) {
                 if (i1 > 0) {
                     if (finalni_vyraz.part[jj].factor[i1][0] != finalni_vyraz.part[jj].factor[i1 - 1][0]) {
                         if (test == 0) { std::cout << " * "; std::fprintf(f, " * "); } test = 0;
@@ -251,7 +242,7 @@ int main() {
 
         int n_factor = konecny_rozklad.part[jj].number_factor;
 
-        while ((n_factor != 0) && (jj < max_parts)) {
+        while ((n_factor != 0) && (jj < maximal_order_parts)) {
 
             if (n_factor < 0) {
                 std::cout << " - "; std::fprintf(f, " - ");
