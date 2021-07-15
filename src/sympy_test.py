@@ -67,6 +67,14 @@ def replace_polynomial(expression, replacement, list_symbols):
     else:
         print(f"Wrong operator {expression.func}")
 
+
+def continuous_replacement_polynomial(expression, replacement, list_symbols):
+    result = (expression, True)
+    while result[1]:
+        result = replace_polynomial(result[0], replacement, list_symbols)
+    return result[0]
+
+
 pprint(replace_monomial(x*y*x, {x*y: y*y}, [x, y]))
 pprint(replace_monomial(x*x*y, {x*y: y*y}, [x, y]))
 
@@ -110,4 +118,4 @@ result = replace_monomial(E31*E31*E32, {E31*E32: E32*E23+H12+H23}, [E31, E32, E2
 pprint(result)
 pprint(replace_polynomial(E31*E31*E32 + 2*E32*E31*E31, {E31*E32: E32*E23+H12+H23}, [E31, E32, E21, E13, E12, E23, H12, H23]))
 pprint(replace_polynomial(E31*E31*E32 + 2*E32*E31*E31, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
-pprint(replace_polynomial(H12*E31*H23*E32 + 2*E32*E31*E31, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
+pprint(continuous_replacement_polynomial(H12*E31*H23*E32 + 2*E32*E31*E31, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
