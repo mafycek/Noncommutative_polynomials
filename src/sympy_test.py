@@ -64,6 +64,11 @@ def replace_polynomial(expression, replacement, list_symbols):
             new_terms.append(placement_term[0])
 
         return Add(*new_terms).expand(mul=True), change
+    elif expression.func == Mul:
+        # processing monomial
+        placement_term = replace_monomial(expression, replacement, list_symbols)
+
+        return (placement_term[0]).expand(mul=True), placement_term[1]
     else:
         print(f"Wrong operator {expression.func}")
 
@@ -119,3 +124,4 @@ pprint(result)
 pprint(replace_polynomial(E31*E31*E32 + 2*E32*E31*E31, {E31*E32: E32*E23+H12+H23}, [E31, E32, E21, E13, E12, E23, H12, H23]))
 pprint(replace_polynomial(E31*E31*E32 + 2*E32*E31*E31, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
 pprint(continuous_replacement_polynomial(H12*E31*H23*E32 + 2*E32*E31*E31, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
+pprint(continuous_replacement_polynomial(E21*E21*E21*E31*E31*H12, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
