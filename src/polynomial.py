@@ -76,3 +76,8 @@ def continuous_replacement_polynomial(expression, replacement, list_symbols):
         result = replace_polynomial(result[0], replacement, list_symbols)
     return result[0]
 
+
+if __name__ == "__main__":
+    import unittest
+
+    unittest.main()
