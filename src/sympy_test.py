@@ -23,11 +23,11 @@ sl3_c = {
     E13*E23: E23*E13,
     E13*H23: H23*E13-2*E13,
     E13*H12: H12*E13-E13,
-    E13*E32: E32*E13+E13,
+    E13*E32: E32*E13+E12,
     E13*E21: E21*E13-E23,
     E13*E31: E31*E13+H23,
     E12*E23: E23*E12+E13,
-    E12*H23: H23*E12+E13,
+    E12*H23: H23*E12-E12,
     E12*H12: H12*E12-2*E12,
     E12*E32: E32*E12,
     E12*E21: E21*E12+H12,
@@ -40,7 +40,7 @@ sl3_c = {
     E23*E31: E31*E23+E21,
 
     H23*H12: H12*H23,
-    H23*E23: E32*H23-E32,
+    H23*E32: E32*H23-E32,
     H23*E21: E21*H23-E21,
     H23*E31: E31*H23-2*E31,
 
@@ -60,3 +60,4 @@ pprint(polynomial.replace_polynomial(E31*E31*E32 + 2*E32*E31*E31, {E31*E32: E32*
 pprint(polynomial.replace_polynomial(E31*E31*E32 + 2*E32*E31*E31, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
 pprint(polynomial.continuous_replacement_polynomial(H12*E31*H23*E32 + 2*E32*E31*E31, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
 pprint(polynomial.continuous_replacement_polynomial(E21*E21*E21*E31*E31*H12, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
+pprint(polynomial.continuous_replacement_polynomial(E12*E12*E23*E23*H12*H12, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
