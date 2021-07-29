@@ -15,8 +15,8 @@ H12 = Symbol('H12', commutative=False)
 H23 = Symbol('H23', commutative=False)
 
 
-pprint(polynomial.replace_monomial(x*y*x, {x*y: y*y}, [x, y]))
-pprint(polynomial.replace_monomial(x*x*y, {x*y: y*y}, [x, y]))
+pprint(polynomial.replace_monomial(x*y*x, ([x, y], {x*y: y*y})))
+pprint(polynomial.replace_monomial(x*x*y, ([x, y], {x*y: y*y})))
 
 sl3_c = {
     E13*E12: E12*E13,
