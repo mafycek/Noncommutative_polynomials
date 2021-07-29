@@ -53,11 +53,11 @@ sl3_c = {
 
     E21*E31: E31*E21
     }
-pprint(polynomial.replace_monomial(E31*E31*E32, {E31*E32: E32*E23+H12+H23}, [E31, E32, E21, E13, E12, E23, H12, H23]))
-result = polynomial.replace_monomial(E31*E31*E32, {E31*E32: E32*E23+H12+H23}, [E31, E32, E21, E13, E12, E23, H12, H23])[0].expand(mul=True)
+pprint(polynomial.replace_monomial(E31*E31*E32, ([E31, E32, E21, E13, E12, E23, H12, H23], sl3_c)))
+result = polynomial.replace_monomial(E31*E31*E32, ([E31, E32, E21, E13, E12, E23, H12, H23], sl3_c))[0].expand(mul=True)
 pprint(result)
-pprint(polynomial.replace_polynomial(E31*E31*E32 + 2*E32*E31*E31, {E31*E32: E32*E23+H12+H23}, [E31, E32, E21, E13, E12, E23, H12, H23]))
-pprint(polynomial.replace_polynomial(E31*E31*E32 + 2*E32*E31*E31, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
-pprint(polynomial.continuous_replacement_polynomial(H12*E31*H23*E32 + 2*E32*E31*E31, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
-pprint(polynomial.continuous_replacement_polynomial(E21*E21*E21*E31*E31*H12, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
-pprint(polynomial.continuous_replacement_polynomial(E12*E12*E23*E23*H12*H12, sl3_c, [E31, E32, E21, E13, E12, E23, H12, H23]))
+pprint(polynomial.replace_polynomial(E31*E31*E32 + 2*E32*E31*E31, ([E31, E32, E21, E13, E12, E23, H12, H23], sl3_c)))
+pprint(polynomial.replace_polynomial(E31*E31*E32 + 2*E32*E31*E31, ([E31, E32, E21, E13, E12, E23, H12, H23], sl3_c)))
+pprint(polynomial.continuous_replacement_polynomial(H12*E31*H23*E32 + 2*E32*E31*E31, ([E31, E32, E21, E13, E12, E23, H12, H23], sl3_c)))
+pprint(polynomial.continuous_replacement_polynomial(E21*E21*E21*E31*E31*H12, ([E31, E32, E21, E13, E12, E23, H12, H23], sl3_c)))
+pprint(polynomial.continuous_replacement_polynomial(E12*E12*E23*E23*H12*H12, ([E31, E32, E21, E13, E12, E23, H12, H23], sl3_c)))
