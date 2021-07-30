@@ -33,15 +33,14 @@ def replace_monomial(expression, algebra_structure):
                     if actual_term[1] != 1:
                         after_insertation.insert(0, Pow(actual_term[0], actual_term[1] - 1))
                     return Mul(*before_insertation, replacement[multiplication], *after_insertation), True
-                else:
-                    return expression, False
             previous_term = actual_term
         return expression, False
+    elif expression.func == Pow:
+        return expression, False
+    elif isinstance(expression, Symbol):
+        return expression, False
     else:
-        if isinstance(expression, Symbol):
-            return expression, False
-        else:
-            print(f"Wrong operator {expression.func}")
+        raise ValueError(f"Wrong operator {expression.func}")
 
 
 def replace_polynomial(expression, algebra_structure):
