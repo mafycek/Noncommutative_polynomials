@@ -1,3 +1,5 @@
+import random
+
 from sympy import *
 
 init_printing(use_unicode=True)
@@ -59,6 +61,8 @@ def replace_polynomial(expression, algebra_structure):
         placement_term = replace_monomial(expression, algebra_structure)
 
         return (placement_term[0]).expand(mul=True), placement_term[1]
+    elif expression.func == Pow:
+        return expression, False
     else:
         print(f"Wrong operator {expression.func}")
 
@@ -123,5 +127,27 @@ if __name__ == "__main__":
             for key, value in sl3_c.items():
                 result = continuous_replacement_polynomial(key, ([E31, E32, E21, E13, E12, E23, H12, H23], sl3_c))
                 self.assertEqual(result, value)
+
+            test_terms = [[H12, H23], [E31, E21], [E31, E32]]
+            for test_term in test_terms:
+                term1, term2 = test_term
+
+                for max_term in range(3, 50):
+                    power_term1 = 0
+                    power_term2 = 0
+                    monomial = 1
+
+                    for item in range(max_term):
+                        decision = random.randint(0, 1)
+                        if decision == 0:
+                            power_term1 += 1
+                            monomial *= term1
+                        if decision == 1:
+                            power_term2 += 1
+                            monomial *= term2
+
+                    comparison = Pow(term1, power_term1) * Pow(term2, power_term2)
+                    result = continuous_replacement_polynomial(monomial, ([E31, E32, E21, E13, E12, E23, H12, H23], sl3_c))
+                    self.assertEqual(result, comparison)
 
     unittest.main()
